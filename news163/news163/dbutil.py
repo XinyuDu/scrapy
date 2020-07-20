@@ -3,7 +3,7 @@ import pymysql
 
 class DataMemorizer(object):
     def __init__(self):
-        self.database = pymysql.connect("192.168.1.5", "root", "123qwe", "news")
+        self.database = pymysql.connect("192.168.8.3", "root", "123qwe", "news")
         self.cur = self.database.cursor()
 
     def insertData(self, table_name, title, link,source,pubtime,real_pubtime):
