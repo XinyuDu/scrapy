@@ -12,9 +12,9 @@ scrapy爬虫，配合无头浏览器splash使用。
 
 3. 启动爬虫
 
-```
+```python
 cd stocks163
-   scrapy crawl stockspider
+scrapy crawl stockspider
 ```
 
  
