@@ -43,7 +43,7 @@ class StockspiderSpider(scrapy.Spider):
         years = response.xpath("/html/body/div[2]/div[4]/div/form/select[1]/*/text()").extract()
         seasons = ['1', '2', '3', '4']
         local_url = []
-        for year in years:
+        for year in years[0]: #[0] 最近一年
             for season in seasons:
                 url = response.url+'?year='+year+'&season='+season
                 local_url.append(url)

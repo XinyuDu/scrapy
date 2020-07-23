@@ -8,7 +8,7 @@
 import scrapy
 
 
-class Stocks163Item(scrapy.Item):
+class Index163Item(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     date = scrapy.Field()
@@ -21,7 +21,3 @@ class Stocks163Item(scrapy.Item):
     change_rate = scrapy.Field()
     volumn_hand = scrapy.Field()
     volumn = scrapy.Field()
-    amplitude = scrapy.Field()
-    turnover_rate = scrapy.Field()
-
-
