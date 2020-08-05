@@ -6,26 +6,14 @@ class DataMemorizer(object):
         self.database = pymysql.connect("192.168.8.3", "root", "123qwe", "news")
         self.cur = self.database.cursor()
 
-    def insertData(self, table_name, stock_name, stock_date, stock_open, stock_max, stock_min,
-                   stock_close, stock_change, stock_change_rate, stock_volumn_hand, stock_volumn,
-                   stock_amplitude, stock_turnover_rate):
+    def insertData(self, table_name, stock_name, stock_num):
 
         table = self._toChar(table_name)
         stock_name = self._toStr(stock_name)
-        stock_date = self._toStr(stock_date)
-        stock_open = self._toStr(stock_open)
-        stock_max = self._toStr(stock_max)
-        stock_min = self._toStr(stock_min)
-        stock_close = self._toStr(stock_close)
-        stock_change = self._toStr(stock_change)
-        stock_change_rate = self._toStr(stock_change_rate)
-        stock_volumn_hand = self._toStr(stock_volumn_hand)
-        stock_volumn = self._toStr(stock_volumn)
-        stock_amplitude = self._toStr(stock_amplitude)
-        stock_turnover_rate = self._toStr(stock_turnover_rate)
+        stock_num = self._toStr(stock_num)
         # print('********************',stock_name[0],stock_close[0],stock_date)
 
-        sql = "insert into " + table + " (`name`,`date`,`open`,`max`,`min`,`close`,`change`,`change_rate`,`volumn_hand`,`volumn`,`amplitude`,`turnover_rate`) values (" + stock_name+","+stock_date+","+stock_open+","+stock_max+","+stock_min+","+stock_close+","+stock_change+","+stock_change_rate+","+stock_volumn_hand+","+stock_volumn+","+stock_amplitude+","+stock_turnover_rate+");"
+        sql = "insert into " + table + " (`name`,`num`) values (" + stock_name+","+stock_num+");"
         # print('****sql', sql)
 
 
@@ -62,19 +50,24 @@ class DataMemorizer(object):
         embs: a numpy array [elementnum,dim]
         '''
         table = self._toChar(table_name)
-        sql = "SELECT * FROM "+table+";"
-        names=[]
-        nums=[]
+        sql = "SELECT * FROM face."+table+";"
+
         try:
             self.cur.execute(sql)
             results = self.cur.fetchall()
             row_num = len(results)
-
+            names=[]
+            embs=np.zeros(shape=(row_num,512),dtype=np.float32)
             for i,row in enumerate(results):
                 names.append(row[1])
-                nums.append(row[2])
+                t = np.frombuffer(row[2],dtype=np.float32)
+                if t.shape[0]!=512:
+                    print(row[1])
+                # print(t.shape)
+                # print(embs[i])
+                embs[i,:]=t
 
-            return names,nums
+            return names,embs
 
         except Exception as e:
             # 如果发生错误则回滚

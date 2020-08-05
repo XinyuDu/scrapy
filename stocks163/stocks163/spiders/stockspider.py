@@ -2,6 +2,7 @@
 import scrapy
 from scrapy_splash import SplashRequest
 from ..items import Stocks163Item
+from ..dbutil import DataMemorizer
 
 # splash lua script
 script ="""
@@ -28,11 +29,18 @@ class StockspiderSpider(scrapy.Spider):
     name = 'stockspider'
     allowed_domains = ['163.com']
     start_urls = ['http://163.com/']
-    url = [
-        'http://quotes.money.163.com/trade/lsjysj_002594.html', #比亚迪
-        'http://quotes.money.163.com/trade/lsjysj_601398.html', #工商银行
-        'http://quotes.money.163.com/trade/lsjysj_600036.html', #招商银行
-    ]
+    # url = [
+    #     'http://quotes.money.163.com/trade/lsjysj_002594.html', #比亚迪
+    #     'http://quotes.money.163.com/trade/lsjysj_601398.html', #工商银行
+    #     'http://quotes.money.163.com/trade/lsjysj_600036.html', #招商银行
+    # ]
+    url = []
+    db = DataMemorizer()
+    names, nums = db.getAll('stocks_num')
+    for num in nums:
+        url.append('http://quotes.money.163.com/trade/lsjysj_'+num+'.html')
+
+    # print('****start stockspider',url)
 
     # start request
     def start_requests(self):
@@ -43,7 +51,7 @@ class StockspiderSpider(scrapy.Spider):
         years = response.xpath("/html/body/div[2]/div[4]/div/form/select[1]/*/text()").extract()
         seasons = ['1', '2', '3', '4']
         local_url = []
-        for year in years[0]: #[0] 最近一年
+        for year in years: #[0] 最近一年
             for season in seasons:
                 url = response.url+'?year='+year+'&season='+season
                 local_url.append(url)
