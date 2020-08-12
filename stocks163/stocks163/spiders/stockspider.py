@@ -45,13 +45,13 @@ class StockspiderSpider(scrapy.Spider):
     # start request
     def start_requests(self):
         for url in self.url:
-            yield SplashRequest(url, callback=self.parse_year, endpoint='execute', args={'lua_source': script, 'wait': 1})
+            yield SplashRequest(url, callback=self.parse_data, endpoint='execute', args={'lua_source': script, 'wait': 1})
 
     def parse_year(self, response):
         years = response.xpath("/html/body/div[2]/div[4]/div/form/select[1]/*/text()").extract()
         seasons = ['1', '2', '3', '4']
         local_url = []
-        for year in years: #[0] 最近一年
+        for year in years[0]: #[0] 最近一年
             for season in seasons:
                 url = response.url+'?year='+year+'&season='+season
                 local_url.append(url)
