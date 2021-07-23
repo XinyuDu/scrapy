@@ -10,11 +10,21 @@ scrapy爬虫，配合无头浏览器splash使用。
 
 `conda activate scrapy`
 
-3. 启动爬虫
+3. 创建爬虫
+
+ ```
+scrapy startproject xxx
+cd xxx
+scrapy genspider example example.com
+ ```
+
+   
+
+5. 启动爬虫
 
 ```python
-cd stocks163
-scrapy crawl stockspider
+cd xxx
+scrapy crawl example
 ```
 
  
