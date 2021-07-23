@@ -101,11 +101,13 @@ SPIDER_MIDDLEWARES = {
 DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 
 ITEM_PIPELINES = {
-    'scrapy_train.pipelines.ScrapyTrainPipeline':300,
+    'baidunews.pipelines.BaidunewsPipeline':300,
 }
 
 CONCURRENT_REQUESTS_PER_DOMAIN = 1
 CONCURRENT_REQUESTS_PER_DOMAIN = 1
 
 AUTOTHROTTLE_ENABLED = True
-DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 1
+
+ROBOTSTXT_OBEY = False
