@@ -18,7 +18,7 @@ class BaidunewsPipeline:
             self.db.insertData('baidu_news', item['title'], item['link'], item['source'], item['pubtime'],
                            item['real_pubtime'])
             #send message
-            content = "<a href=\"%s\">%s</a>"%(item['link'],item['abstract']) #item['abstract']
+            content = "<a href=\"%s\">%s</a>"%(item['link'],item['title']+'</br>'+item['abstract']) #item['abstract']
             msg = wxmsg(token='95ffa823a2bd41a5b9119fe491d5c0f8', title=item['title'], content=content)
             msg.send()
         except Exception as e:
