@@ -10,7 +10,7 @@ from baidunews.dbutil import DataMemorizer
 from baidunews.wxmsg import wxmsg
 
 class BaidunewsPipeline:
-    def open_spider(self,spider):
+    def open_spider(self, spider):
         self.db=DataMemorizer()
 
     def process_item(self, item, spider):
