@@ -7,7 +7,7 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 from baidunews.dbutil import DataMemorizer
-from baidunews.wxmsg import wxmsg
+# from baidunews.wxmsg import wxmsg
 from baidunews.wxpusher import wxpusher
 
 class BaidunewsPipeline:
