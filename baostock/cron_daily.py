@@ -1,17 +1,27 @@
 import time
 from sqlalchemy import create_engine, types
+import pandas as pd
 from datetime import datetime
 from utils import get_all_data, get_daily_data
 
 engine = create_engine('mysql+pymysql://root:123qwe@localhost:3306/stocks')
 
-# get all stock list and put it into db
-stock_list = get_all_data()
-stock_list.to_sql('stock_list', engine, index=True, if_exists='replace')
+# last date
+last_date = pd.read_sql_query('select max(date) from daily_history', engine)
+last_date = last_date.loc[0]['max(date)']
 
-# get every stock daily date and put it into db in loop
+# get all stock list and put it into db
+stock_list = get_all_data(last_date)
+if len(stock_list) > 0:
+    stock_list.to_sql('stock_list', engine, index=True, if_exists='replace')
+
+# del all data where date=today
 today = datetime.now().strftime("%Y-%m-%d")
-behave = 'replace'
+with engine.connect() as con:
+    con.execute('DELETE FROM daily_history WHERE date=\'%s\'' % today)
+
+# get every stock today date and put it into db in loop
+behave = 'append'
 sql_types = {'date': types.Date,
              'code': types.VARCHAR(50),
              'open': types.Float,
@@ -33,16 +43,11 @@ sql_types = {'date': types.Date,
 start_time = time.time()
 for index, row in stock_list.iterrows():
     stock_code = row['code']
-    ipo_date = '1990-12-19'  # get_ipo_date(stock_code)
-    daily_result = get_daily_data(stock_code, ipo_date, today)
+    daily_result = get_daily_data(stock_code, today, today)
     if len(daily_result) == 0:
         continue
     daily_result.replace('', 0, inplace=True)
     daily_result.to_sql('daily_history', engine, index=False, if_exists=behave, dtype=sql_types)
-    if behave == 'replace':
-        with engine.connect() as con:
-            con.execute('ALTER TABLE `daily_history` ADD INDEX `code_index` USING BTREE (`code`) VISIBLE;')
-        behave = 'append'
 
 end_time = time.time()
 print('Total time cost:', end_time-start_time)

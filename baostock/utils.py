@@ -2,8 +2,7 @@ import baostock as bs
 import pandas as pd
 import datetime
 
-def get_all_data():
-    query_date = (datetime.datetime.now()-datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+def get_all_data(query_date):
     ### 登陆系统 ####
     lg = bs.login()
     # 显示登陆返回信息
@@ -11,7 +10,7 @@ def get_all_data():
     print('login respond  error_msg:' + lg.error_msg)
 
     #### 获取证券信息 ####
-    print(query_date)
+    # print(query_date)
     rs = bs.query_all_stock(day=query_date)
     print('query_all_stock respond error_code:' + rs.error_code)
     print('query_all_stock respond  error_msg:' + rs.error_msg)
