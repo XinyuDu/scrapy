@@ -3,8 +3,13 @@ from sqlalchemy import create_engine, types
 import pandas as pd
 from datetime import datetime
 from utils import get_all_data, get_daily_data
+from baidunews.wxpusher import wxpusher
 
 engine = create_engine('mysql+pymysql://root:123qwe@localhost:3306/stocks')
+
+start_line_num = pd.read_sql_query('select count(*) from daily_history', engine)
+start_line_num = start_line_num.loc[0]['count(*)']
+
 
 # last date
 last_date = pd.read_sql_query('select max(date) from daily_history', engine)
@@ -49,5 +54,23 @@ for index, row in stock_list.iterrows():
     daily_result.replace('', 0, inplace=True)
     daily_result.to_sql('daily_history', engine, index=False, if_exists=behave, dtype=sql_types)
 
+end_line_num = pd.read_sql_query('select count(*) from daily_history', engine)
+end_line_num = end_line_num.loc[0]['count(*)']
+
 end_time = time.time()
 print('Total time cost:', end_time-start_time)
+
+# push wx message
+content = "The baostock daily cron task finished add record num: %d" % (end_line_num-start_line_num)
+body = {
+                "appToken": "AT_a2fSMuBxfl5WEOkOkq13NixH7ZTKYJqG",
+                "content": content,
+                "summary": "Baostock cron daily finished",
+                "contentType": 2,
+                "uids": ["UID_RxY9fJ8MaWCFWdXzOfMCkCmYhdPY"],
+                "url": "url"
+            }
+msg = wxpusher(body)
+re = msg.send()
+print(re.text)
+

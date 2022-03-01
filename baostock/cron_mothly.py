@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, types
 from datetime import datetime
 from utils import get_all_data, get_daily_data
 import pandas as pd
+from baidunews.wxpusher import wxpusher
 
 engine = create_engine('mysql+pymysql://root:123qwe@localhost:3306/stocks')
 
@@ -49,5 +50,21 @@ for index, row in stock_list.iterrows():
             con.execute('ALTER TABLE `daily_history` ADD INDEX `code_index` USING BTREE (`code`) VISIBLE;')
         behave = 'append'
 
+end_line_num = pd.read_sql_query('select count(*) from daily_history', engine)
+end_line_num = end_line_num.loc[0]['count(*)']
 end_time = time.time()
 print('Total time cost:', end_time-start_time)
+
+# push wx message
+content = "The baostock monthly cron task finished add record num: %d" % end_line_num
+body = {
+                "appToken": "AT_a2fSMuBxfl5WEOkOkq13NixH7ZTKYJqG",
+                "content": content,
+                "summary": "Baostock cron monthly finished",
+                "contentType": 2,
+                "uids": ["UID_RxY9fJ8MaWCFWdXzOfMCkCmYhdPY"],
+                "url": "url"
+            }
+msg = wxpusher(body)
+re = msg.send()
+print(re.text)
