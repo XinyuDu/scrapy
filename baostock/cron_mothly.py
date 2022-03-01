@@ -56,7 +56,8 @@ end_time = time.time()
 print('Total time cost:', end_time-start_time)
 
 # push wx message
-content = "The baostock monthly cron task finished add record num: %d" % end_line_num
+content = "The baostock monthly cron task finished add record num: %d. Total time cost:%d seconds" % \
+          (end_line_num, end_time-start_time)
 body = {
                 "appToken": "AT_a2fSMuBxfl5WEOkOkq13NixH7ZTKYJqG",
                 "content": content,
