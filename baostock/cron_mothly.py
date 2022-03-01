@@ -2,11 +2,16 @@ import time
 from sqlalchemy import create_engine, types
 from datetime import datetime
 from utils import get_all_data, get_daily_data
+import pandas as pd
 
 engine = create_engine('mysql+pymysql://root:123qwe@localhost:3306/stocks')
 
+# last date
+last_date = pd.read_sql_query('select max(date) from daily_history', engine)
+last_date = last_date.loc[0]['max(date)']
+
 # get all stock list and put it into db
-stock_list = get_all_data()
+stock_list = get_all_data(last_date)
 stock_list.to_sql('stock_list', engine, index=True, if_exists='replace')
 
 # get every stock daily date and put it into db in loop
