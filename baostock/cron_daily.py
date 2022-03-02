@@ -21,7 +21,7 @@ if len(stock_list) > 0:
     stock_list.to_sql('stock_list', engine, index=True, if_exists='replace')
 
 # del all data where date=today
-today = '2022-03-01'#datetime.now().strftime("%Y-%m-%d")
+today = datetime.now().strftime("%Y-%m-%d")
 with engine.connect() as con:
     con.execute('DELETE FROM daily_history WHERE date=\'%s\'' % today)
 
