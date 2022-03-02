@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, types
 from datetime import datetime
 from utils import get_all_data, get_daily_data
 import pandas as pd
-from baidunews.wxpusher import wxpusher
+from wxpusher import wxpusher
 
 engine = create_engine('mysql+pymysql://root:123qwe@localhost:3306/stocks')
 
