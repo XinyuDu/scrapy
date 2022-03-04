@@ -2,6 +2,7 @@ import baostock as bs
 import pandas as pd
 import datetime
 
+
 def get_all_data(query_date):
     ### 登陆系统 ####
     lg = bs.login()
@@ -51,8 +52,9 @@ def get_ipo_date(stocknum):
 def get_daily_data(stocknum, start_date, end_date):
     # 登陆系统
     lg = bs.login()
-    print('login respond error_code:' + lg.error_code)
-    print('login respond  error_msg:' + lg.error_msg)
+    if lg.error_code != '0':
+        print('login respond error_code:' + lg.error_code)
+        print('login respond  error_msg:' + lg.error_msg)
     #### 获取历史K线数据 ####
     # 详细指标参数，参见“历史行情指标参数”章节
     rs = bs.query_history_k_data_plus(stocknum,
@@ -68,5 +70,7 @@ def get_daily_data(stocknum, start_date, end_date):
         # 获取一条记录，将记录合并在一起
         data_list.append(rs.get_row_data())
     result = pd.DataFrame(data_list, columns=rs.fields)
+    print(stocknum, len(result))
+
     bs.logout()
     return result
