@@ -48,6 +48,7 @@ class BaiduSpider(scrapy.Spider):
             yield SplashRequest(url, callback=self.parse, endpoint='execute', args={'lua_source': script, 'wait': 1})
 
     def parse(self, response):
+        print('*********************')
         articles = response.xpath("/html/body/div/div[3]/div[1]/div[4]/div[2]/div[*]")
         for ar in articles:
             item = BaidunewsItem()
@@ -67,7 +68,7 @@ class BaiduSpider(scrapy.Spider):
             item['pubtime'] = pubtime
             item['real_pubtime'] = realtime
             item['abstract'] = abstract
-            # print("*****", item)
+            print("*****", item)
             yield item
 
 

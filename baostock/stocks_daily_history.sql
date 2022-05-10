@@ -1,0 +1,21 @@
+CREATE TABLE `daily_history` (
+  `date` date DEFAULT NULL,
+  `code` varchar(50) DEFAULT NULL,
+  `open` float DEFAULT NULL,
+  `high` float DEFAULT NULL,
+  `low` float DEFAULT NULL,
+  `close` float DEFAULT NULL,
+  `preclose` float DEFAULT NULL,
+  `volume` bigint DEFAULT NULL,
+  `amount` float DEFAULT NULL,
+  `adjustflag` smallint DEFAULT NULL,
+  `turn` text,
+  `tradestatus` smallint DEFAULT NULL,
+  `pctChg` float DEFAULT NULL,
+  `peTTM` float DEFAULT NULL,
+  `pbMRQ` float DEFAULT NULL,
+  `psTTM` float DEFAULT NULL,
+  `pcfNcfTTM` float DEFAULT NULL,
+  `isST` float DEFAULT NULL,
+  KEY `code_index` (`code`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3
