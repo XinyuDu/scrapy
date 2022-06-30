@@ -1,6 +1,6 @@
 import time
 from sqlalchemy import create_engine, types
-from datetime import datetime
+from datetime import datetime, timedelta
 from utils import get_all_data, get_daily_data
 import pandas as pd
 from wxpusher import wxpusher
@@ -10,6 +10,9 @@ engine = create_engine('mysql+pymysql://root:123qwe@localhost:3306/stocks')
 # last date
 last_date = pd.read_sql_query('select max(date) from daily_history', engine)
 last_date = last_date.loc[0]['max(date)']
+if last_date==None:
+    last_date = (datetime.now()-timedelta(days=1)).strftime("%Y-%m-%d")
+print('latest date:', last_date)
 
 # get all stock list and put it into db
 stock_list = get_all_data(last_date)
