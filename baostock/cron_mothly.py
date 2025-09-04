@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, types
 from datetime import datetime, timedelta
 from utils import get_all_data, get_daily_data
 import pandas as pd
-from wxpusher import wxpusher
+from pushplus import pushplus
 
 engine = create_engine('mysql+pymysql://root:123qwe@localhost:3306/stocks')
 
@@ -62,13 +62,10 @@ print('Total time cost:', end_time-start_time)
 content = "The baostock monthly cron task finished add record num: %d. Total time cost:%d seconds" % \
           (end_line_num, end_time-start_time)
 body = {
-                "appToken": "AT_a2fSMuBxfl5WEOkOkq13NixH7ZTKYJqG",
-                "content": content,
-                "summary": "Baostock cron monthly finished",
-                "contentType": 2,
-                "uids": ["UID_RxY9fJ8MaWCFWdXzOfMCkCmYhdPY"],
-                "url": "url"
-            }
-msg = wxpusher(body)
+    "token": "2cfba23c342a4deeba50a6d922ec2ea4",
+    "content": content,
+    "title": "Baostock cron monthly finished",
+}
+msg = pushplus(body)
 re = msg.send()
 print(re.text)
