@@ -1,5 +1,4 @@
 import requests
-import json
 
 class pushplus():
     def __init__(self, body):
@@ -14,6 +13,6 @@ class pushplus():
         url = f"https://www.pushplus.plus/send?token={token}&title={title}&content={content}&template={template}"
         print(url)
         r = requests.get(url=url)
-        print(r.text)
+        # print(r.text)
 
-        return r.text
+        return r
