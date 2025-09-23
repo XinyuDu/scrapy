@@ -69,8 +69,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-##todo list
-#1. get context of true page
-#2. save to file in pandas mode
