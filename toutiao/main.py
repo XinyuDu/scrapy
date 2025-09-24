@@ -5,7 +5,6 @@ import json
 import json5
 import pandas as pd
 from datetime import datetime
-from markdownify import markdownify as md
 
 def get_toutiao():
     data_toutiao = {"request_type": "general"}
@@ -47,7 +46,7 @@ def main():
     scrape_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     final_result = []
     for index, item in enumerate(relevance_list):
-        if item['relevance'] and item['url']==articles[index]['url']:
+        if item['relevance'] and item['url']==articles[index]['url'] and "天" not in articles[index]['pub_time']: ##相关且llm生成的url与原始url一致且发布时间不含‘天’字
             temp = articles[index]
             temp['scrape_time'] = scrape_time
             temp['explain'] = item['explain']
@@ -64,8 +63,17 @@ def main():
             new_row_df = pd.DataFrame([item])
             df = pd.concat([df, new_row_df], ignore_index=True)
     # print(df)
-    df = df.drop(columns=['index'])
-    df.to_excel('toutiao.xlsx', index=False)
+    try:
+        df = df.drop(columns=['index'])
+    except:
+        pass
+
+    ##过滤，留下最近7天的数据
+    df['scrape_time'] = pd.to_datetime(df['scrape_time'])
+    now = pd.Timestamp.now()
+    seven_days_ago = now - pd.Timedelta(days=7)
+    filtered_df = df[df['scrape_time'] > seven_days_ago]
+    filtered_df.to_excel('toutiao.xlsx', index=False)
 
 if __name__ == "__main__":
     main()

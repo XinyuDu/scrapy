@@ -1,21 +1,21 @@
 script path: /Users/duxinyu/PythonProjects/web2api/
 Server start..
 Locator.text_content: Error: strict mode violation: locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").first.locator("[class='title']") resolved to 5 elements:
-    1) <a class="title" rel="noopener" target="_blank" aria-label="雪莲绽放新时代 团结奋斗谱新篇" href="https://www.toutiao.com/article/7553100035827696128/">雪莲绽放新时代 团结奋斗谱新篇</a> aka get_by_role("link", name="雪莲绽放新时代 团结奋斗谱新篇")
-    2) <a class="title" rel="noopener" target="_blank" aria-label="共同奔向中国式现代化的美好未来" href="https://www.toutiao.com/article/7552866682302104107/">共同奔向中国式现代化的美好未来</a> aka get_by_role("link", name="共同奔向中国式现代化的美好未来")
-    3) <a class="title" rel="noopener" target="_blank" aria-label="我国迎来第八个中国农民丰收节" href="https://www.toutiao.com/article/7553067812231692854/">我国迎来第八个中国农民丰收节</a> aka get_by_role("link", name="我国迎来第八个中国农民丰收节", exact=True)
-    4) <a class="title" rel="noopener" target="_blank" aria-label="2025国庆档电影片单在京发布" href="https://www.toutiao.com/article/7552814210690957874/">2025国庆档电影片单在京发布</a> aka get_by_role("link", name="国庆档电影片单在京发布")
-    5) <a class="title" rel="noopener" target="_blank" aria-label="各地各部门积极应对台风“桦加沙”" href="https://www.toutiao.com/article/7553102948176347690/">各地各部门积极应对台风“桦加沙”</a> aka get_by_role("link", name="各地各部门积极应对台风“桦加沙”")
+    1) <a class="title" rel="noopener" target="_blank" aria-label="和总书记面对面｜情暖天山 建功奋进" href="https://www.toutiao.com/article/7553333014755918336/">和总书记面对面｜情暖天山 建功奋进</a> aka get_by_role("link", name="和总书记面对面｜情暖天山 建功奋进")
+    2) <a class="title" rel="noopener" target="_blank" aria-label="习近平总书记关心新疆建设发展的故事" href="https://www.toutiao.com/article/7553232781586776628/">习近平总书记关心新疆建设发展的故事</a> aka get_by_role("link", name="习近平总书记关心新疆建设发展的故事")
+    3) <a class="title" rel="noopener" target="_blank" aria-label="“中国的饭碗一定要端在自己的手里”" href="https://www.toutiao.com/article/7552904683347427883/">“中国的饭碗一定要端在自己的手里”</a> aka get_by_role("link", name="“中国的饭碗一定要端在自己的手里”")
+    4) <a class="title" rel="noopener" target="_blank" aria-label="新疆维吾尔自治区70年发展成就斐然" href="https://www.toutiao.com/article/7553034162362515968/">新疆维吾尔自治区70年发展成就斐然</a> aka get_by_role("link", name="新疆维吾尔自治区70年发展成就斐然")
+    5) <a class="title" rel="noopener" target="_blank" aria-label="瞭望 | 共绘新时代新疆美好画卷" href="https://www.toutiao.com/article/7553116055980327439/">瞭望 | 共绘新时代新疆美好画卷</a> aka get_by_role("link", name="瞭望 | 共绘新时代新疆美好画卷")
 
 Call log:
   - waiting for locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").first.locator("[class='title']")
 
 Locator.text_content: Error: strict mode violation: locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").nth(9).locator("[class='title']") resolved to 2 elements:
-    1) <a class="title" rel="noopener" target="_blank" href="/video/7547261083346829833/" title="实拍河南郑州荥阳市城市建设，太繁华了，不愧为全国百强县">实拍河南郑州荥阳市城市建设，太繁华了，不愧为全国百强县</a> aka get_by_text("实拍河南郑州荥阳市城市建设，太繁华了，不愧为全国百强县")
-    2) <a class="title" rel="noopener" target="_blank" href="/video/7548100206860960271/" title="听说号称河南第一县——中牟县，也是河南唯一一个通地铁的县城。">听说号称河南第一县——中牟县，也是河南唯一一个通地铁的县城。</a> aka get_by_text("听说号称河南第一县——中牟县，也是河南唯一一个通地铁的县城。")
+    1) <a class="title" rel="noopener" target="_blank" href="/video/7553380690331566638/" title="今日凌晨，珠海极端天气来袭，现场有多吓人？视频记录全过程">今日凌晨，珠海极端天气来袭，现场有多吓人？视频记录全过程</a> aka get_by_text("今日凌晨，珠海极端天气来袭，现场有多吓人？视频记录全过程")
+    2) <a class="title" rel="noopener" target="_blank" href="/video/7551294542924300826/" title="弘历痛骂弘历 #甄嬛传 #如懿传 #还珠格格 #延禧攻略  #后宫群聊">弘历痛骂弘历 #甄嬛传 #如懿传 #还珠格格 #延禧攻略  #后宫群聊</a> aka get_by_text("弘历痛骂弘历 #甄嬛传 #如懿传 #还珠格格 #延禧攻略 #后宫群聊")
 
 Call log:
   - waiting for locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").nth(9).locator("[class='title']")
 
-total time cost:4.272254
-total time cost:19.150131
+total time cost:3.496230
+total time cost:16.909584
