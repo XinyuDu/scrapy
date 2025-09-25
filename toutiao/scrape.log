@@ -1,0 +1,22 @@
+get_toutiao api articles
+[{'index': 1, 'title': '2025宁夏养老服务业博览会：司法厅法律服务团队为“银发族”法律难题保驾护航', 'url': '/article/7553538436913742375/', 'source': '司法部', 'pub_time': '23小时前'}, {'index': 2, 'title': '辽宁三条高速一条高铁即将通车！', 'url': '/article/7553606190312292898/', 'source': '辽宁日报', 'pub_time': '18小时前'}, {'index': 3, 'title': '提质增效！湖南移动推出巡察数智支撑平台', 'url': '/article/7553481272010605071/', 'source': '华声在线', 'pub_time': '昨天10:45'}, {'index': 4, 'title': '交易成本节约：中国式统一大市场的政策逻辑', 'url': '/article/7553576099809198602/', 'source': '澎湃新闻', 'pub_time': '20小时前'}, {'index': 5, 'title': '流感疫苗为啥要在10月底前完成接种才最好？', 'url': '/article/7553475562845618727/', 'source': '大象新闻', 'pub_time': '昨天10:23'}, {'index': 6, 'title': '《中国珍稀濒危植物孢粉图鉴》开辟植物保护与科研交叉新领域', 'url': '/article/7553462744217961002/', 'source': '中国新闻出版广电报', 'pub_time': '昨天09:33'}, {'index': 7, 'title': '中国首席大检察官、最高检检察长应勇，率团出席重要会议', 'url': '/article/7553650339355722303/', 'source': '政知新媒体', 'pub_time': '16小时前'}, {'index': 8, 'title': '长株潭区域专场招聘会成功举办 助力人才与产业双向奔赴', 'url': '/article/7553649107383697935/', 'source': '华声在线', 'pub_time': '16小时前'}, {'index': 9, 'title': '大美中国：济源市。低调的济源，我竟不知有这么多好看的地方！', 'url': '/video/7544935473559470643/', 'source': '清风拂梦', 'pub_time': '09月08日'}]
+parse_relative_time api
+18小时前 2025-09-25 13:44:01
+parse_relative_time api
+parse_relative_time==
+18小时前
+parse_relative_time==
+hour
+main print item====
+{'index': 2, 'title': '辽宁三条高速一条高铁即将通车！', 'url': '/article/7553606190312292898/', 'source': '辽宁日报', 'pub_time': '18小时前', 'scrape_time': '2025-09-25 13:44:01', 'explain': '基础设施建设相关，可能影响基建、交通等相关A股板块', 'abs_pub_time': Timestamp('2025-09-24 19:44:01')}
+main print item====
+parse_relative_time api
+20小时前 2025-09-25 13:44:01
+parse_relative_time api
+parse_relative_time==
+20小时前
+parse_relative_time==
+hour
+main print item====
+{'index': 4, 'title': '交易成本节约：中国式统一大市场的政策逻辑', 'url': '/article/7553576099809198602/', 'source': '澎湃新闻', 'pub_time': '20小时前', 'scrape_time': '2025-09-25 13:44:01', 'explain': '宏观经济政策分析，直接影响A股市场整体环境和交易成本', 'abs_pub_time': Timestamp('2025-09-24 17:44:01')}
+main print item====

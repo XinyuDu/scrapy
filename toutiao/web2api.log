@@ -1,21 +1,18 @@
 script path: /Users/duxinyu/PythonProjects/web2api/
 Server start..
 Locator.text_content: Error: strict mode violation: locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").first.locator("[class='title']") resolved to 5 elements:
-    1) <a class="title" rel="noopener" target="_blank" aria-label="和总书记面对面｜情暖天山 建功奋进" href="https://www.toutiao.com/article/7553333014755918336/">和总书记面对面｜情暖天山 建功奋进</a> aka get_by_role("link", name="和总书记面对面｜情暖天山 建功奋进")
-    2) <a class="title" rel="noopener" target="_blank" aria-label="习近平总书记关心新疆建设发展的故事" href="https://www.toutiao.com/article/7553232781586776628/">习近平总书记关心新疆建设发展的故事</a> aka get_by_role("link", name="习近平总书记关心新疆建设发展的故事")
-    3) <a class="title" rel="noopener" target="_blank" aria-label="“中国的饭碗一定要端在自己的手里”" href="https://www.toutiao.com/article/7552904683347427883/">“中国的饭碗一定要端在自己的手里”</a> aka get_by_role("link", name="“中国的饭碗一定要端在自己的手里”")
-    4) <a class="title" rel="noopener" target="_blank" aria-label="新疆维吾尔自治区70年发展成就斐然" href="https://www.toutiao.com/article/7553034162362515968/">新疆维吾尔自治区70年发展成就斐然</a> aka get_by_role("link", name="新疆维吾尔自治区70年发展成就斐然")
-    5) <a class="title" rel="noopener" target="_blank" aria-label="瞭望 | 共绘新时代新疆美好画卷" href="https://www.toutiao.com/article/7553116055980327439/">瞭望 | 共绘新时代新疆美好画卷</a> aka get_by_role("link", name="瞭望 | 共绘新时代新疆美好画卷")
+    1) <a class="title" rel="noopener" target="_blank" aria-label="习近平出席新疆维吾尔自治区庆祝大会" href="https://www.toutiao.com/article/7553856786244977167/">习近平出席新疆维吾尔自治区庆祝大会</a> aka get_by_role("link", name="习近平出席新疆维吾尔自治区庆祝大会")
+    2) <a class="title" rel="noopener" target="_blank" aria-label="这位“人民楷模”，想对总书记说句心里话" href="https://www.toutiao.com/article/7553586340420502042/">这位“人民楷模”，想对总书记说句心里话</a> aka get_by_role("link", name="这位“人民楷模”，想对总书记说句心里话")
+    3) <a class="title" rel="noopener" target="_blank" aria-label="天天学习｜石榴花开幸福长" href="https://www.toutiao.com/article/7553461183467045391/">天天学习｜石榴花开幸福长</a> aka get_by_role("link", name="天天学习｜石榴花开幸福长")
+    4) <a class="title" rel="noopener" target="_blank" aria-label="大爱吾疆" href="https://www.toutiao.com/article/7553797729437139471/">大爱吾疆</a> aka get_by_role("link", name="大爱吾疆")
+    5) <a class="title" rel="noopener" target="_blank" aria-label="台风“桦加沙”登陆后造成哪些影响？" href="https://www.toutiao.com/article/7553824216357962240/">台风“桦加沙”登陆后造成哪些影响？</a> aka get_by_role("link", name="台风“桦加沙”登陆后造成哪些影响？")
 
 Call log:
   - waiting for locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").first.locator("[class='title']")
 
-Locator.text_content: Error: strict mode violation: locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").nth(9).locator("[class='title']") resolved to 2 elements:
-    1) <a class="title" rel="noopener" target="_blank" href="/video/7553380690331566638/" title="今日凌晨，珠海极端天气来袭，现场有多吓人？视频记录全过程">今日凌晨，珠海极端天气来袭，现场有多吓人？视频记录全过程</a> aka get_by_text("今日凌晨，珠海极端天气来袭，现场有多吓人？视频记录全过程")
-    2) <a class="title" rel="noopener" target="_blank" href="/video/7551294542924300826/" title="弘历痛骂弘历 #甄嬛传 #如懿传 #还珠格格 #延禧攻略  #后宫群聊">弘历痛骂弘历 #甄嬛传 #如懿传 #还珠格格 #延禧攻略  #后宫群聊</a> aka get_by_text("弘历痛骂弘历 #甄嬛传 #如懿传 #还珠格格 #延禧攻略 #后宫群聊")
-
+Locator.text_content: Timeout 30000ms exceeded.
 Call log:
-  - waiting for locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").nth(9).locator("[class='title']")
+  - waiting for locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").nth(10).locator("[class='title']")
 
-total time cost:3.496230
-total time cost:16.909584
+total time cost:32.586635
+total time cost:23.570160
