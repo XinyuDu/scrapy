@@ -76,7 +76,7 @@ start_date = states[0][2]
 start_date = start_date+timedelta(hours=8)
 stop_date = states[0][3]
 now = datetime.now()
-if (now-start_date).total_seconds()<300 and stop_date==None: #in 5min to latest start_date of offline state and stop_date is None
+if (state=='offline' or state=='asleep') and (now-start_date).total_seconds()<300 and stop_date==None: #in 5min to latest start_date of offline state and stop_date is None
     drive = get_drives()
     start_time = (drive[0][0]+timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
     end_time = (drive[0][1]+timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
