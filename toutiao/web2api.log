@@ -1,18 +1,25 @@
 script path: /Users/duxinyu/PythonProjects/web2api/
 Server start..
 Locator.text_content: Error: strict mode violation: locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").first.locator("[class='title']") resolved to 5 elements:
-    1) <a class="title" rel="noopener" target="_blank" aria-label="习近平出席新疆维吾尔自治区庆祝大会" href="https://www.toutiao.com/article/7553856786244977167/">习近平出席新疆维吾尔自治区庆祝大会</a> aka get_by_role("link", name="习近平出席新疆维吾尔自治区庆祝大会")
-    2) <a class="title" rel="noopener" target="_blank" aria-label="这位“人民楷模”，想对总书记说句心里话" href="https://www.toutiao.com/article/7553586340420502042/">这位“人民楷模”，想对总书记说句心里话</a> aka get_by_role("link", name="这位“人民楷模”，想对总书记说句心里话")
-    3) <a class="title" rel="noopener" target="_blank" aria-label="天天学习｜石榴花开幸福长" href="https://www.toutiao.com/article/7553461183467045391/">天天学习｜石榴花开幸福长</a> aka get_by_role("link", name="天天学习｜石榴花开幸福长")
-    4) <a class="title" rel="noopener" target="_blank" aria-label="大爱吾疆" href="https://www.toutiao.com/article/7553797729437139471/">大爱吾疆</a> aka get_by_role("link", name="大爱吾疆")
-    5) <a class="title" rel="noopener" target="_blank" aria-label="台风“桦加沙”登陆后造成哪些影响？" href="https://www.toutiao.com/article/7553824216357962240/">台风“桦加沙”登陆后造成哪些影响？</a> aka get_by_role("link", name="台风“桦加沙”登陆后造成哪些影响？")
+    1) <a class="title" rel="noopener" target="_blank" aria-label="习近平提出哪些新倡议新举措？" href="https://www.toutiao.com/article/7560693637881856527/">习近平提出哪些新倡议新举措？</a> aka get_by_role("link", name="习近平提出哪些新倡议新举措？")
+    2) <a class="title" rel="noopener" target="_blank" aria-label="那些蕴藏在汉字中的女性力量" href="https://www.toutiao.com/article/7560663529078915636/">那些蕴藏在汉字中的女性力量</a> aka get_by_role("link", name="那些蕴藏在汉字中的女性力量")
+    3) <a class="title" rel="noopener" target="_blank" aria-label="逆势向上！中国外贸增速逐季加快" href="https://www.toutiao.com/article/7560620745240445491/">逆势向上！中国外贸增速逐季加快</a> aka get_by_role("link", name="逆势向上！中国外贸增速逐季加快")
+    4) <a class="title" rel="noopener" target="_blank" aria-label="全球妇女峰会 | 携手与答案" href="https://www.toutiao.com/article/7560730843325432354/">全球妇女峰会 | 携手与答案</a> aka get_by_role("link", name="全球妇女峰会 | 携手与答案")
+    5) <a class="title" rel="noopener" target="_blank" aria-label="以奋斗姿态激扬青春、实现梦想" href="https://www.toutiao.com/article/7560540255318524442/">以奋斗姿态激扬青春、实现梦想</a> aka get_by_role("link", name="以奋斗姿态激扬青春、实现梦想")
 
 Call log:
   - waiting for locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").first.locator("[class='title']")
+
+Locator.text_content: Error: strict mode violation: locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").nth(9).locator("[class='title']") resolved to 2 elements:
+    1) <a class="title" rel="noopener" target="_blank" href="/video/7530568126783324713/" title="西安灞河入渭口，现场实景大跌眼镜#灞河 #西安 #河流 #河 #渭河">西安灞河入渭口，现场实景大跌眼镜#灞河 #西安 #河流 #河 #渭河</a> aka get_by_text("西安灞河入渭口，现场实景大跌眼镜#灞河 #西安 #河流 #河 #渭河")
+    2) <a class="title" rel="noopener" target="_blank" title="舅舅在公园里玩单杠，外甥把舅舅裤子拽掉了😂" href="/video/7531186792733655578/">舅舅在公园里玩单杠，外甥把舅舅裤子拽掉了😂</a> aka get_by_text("舅舅在公园里玩单杠，外甥把舅舅裤子拽掉了😂")
+
+Call log:
+  - waiting for locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").nth(9).locator("[class='title']")
 
 Locator.text_content: Timeout 30000ms exceeded.
 Call log:
   - waiting for locator("xpath=/html/body/div[1]/div/div[5]/div[1]/div/div/div/div[2]/div[*]").nth(10).locator("[class='title']")
 
-total time cost:32.586635
-total time cost:23.570160
+total time cost:33.349496
+total time cost:17.840795

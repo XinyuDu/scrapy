@@ -108,7 +108,7 @@ def main():
     scrape_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     final_result = []
     for index, item in enumerate(relevance_list):
-        if item['relevance'] and item['url']==articles[index]['url'] and "天" not in articles[index]['pub_time']: ##相关且llm生成的url与原始url一致且发布时间不含‘天’字
+        if item['relevance'] and item['url']==articles[index]['url'] and "天" not in articles[index]['pub_time'] and "月" not in articles[index]['pub_time']: ##相关且llm生成的url与原始url一致且发布时间不含‘天’字
             temp = articles[index]
             temp['scrape_time'] = scrape_time
             temp['explain'] = item['explain']
