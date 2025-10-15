@@ -6,11 +6,7 @@ import os
 import pandas as pd
 
 def get_state():
-    sql_statement = text("""
-    SELECT * FROM "public"."states"
-    ORDER BY "start_date" DESC
-    LIMIT 1 OFFSET 0;
-    """)
+    sql_statement = text("""SELECT * FROM "public"."states" WHERE state='online' ORDER BY "start_date" DESC LIMIT 1 OFFSET 0;""")
 
     try:
         # 连接并执行查询
