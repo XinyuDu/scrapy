@@ -17,11 +17,6 @@ def get_drives(drive_id, connection):
             drive_record = cursor.fetchone()
 
             if drive_record:
-                # # 获取列名并创建字典
-                # colnames = [desc[0] for desc in cursor.description]
-                # drive_dict = dict(zip(colnames, drive_record))
-                # drive_dict['fetch_time'] = datetime.now().isoformat()
-                # return drive_dict
                 return drive_record
             return None
 
@@ -53,27 +48,12 @@ def get_addresses(address_id, connection):
         print(f"查询地址详情失败: {e}")
         return None
 
-def get_efficiency(drive_id, distance):
-    conn_params = {
-        'dbname': 'teslamate',
-        'user': 'teslamate',
-        'password': '123456',  # 请替换为你的密码
-        'host': 'nas.tailc67917.ts.net',
-        'port': '15432'
-    }
-
-    conn2 = None
-
+def get_efficiency(drive_id, distance, connection):
     if distance == 0 :
         return 'distance == 0'
 
     try:
-        # 建立数据库连接
-        conn2 = psycopg2.connect(**conn_params)
-        # 设置连接为自动提交模式，这对于LISTEN是必须的[11](@ref)
-        conn2.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
-        # 连接并执行查询
-        with conn2.cursor() as cursor:
+        with connection.cursor() as cursor:
             query = """SELECT
                             drive_id,
                             MAX(battery_level) AS max_battery_level,
@@ -155,7 +135,6 @@ def listen_and_fetch():
                     end_address = get_addresses(end_address_id, conn)[0]
                     avg_speed = round(distance / duration_min * 60, 2)
                     efficiency = get_efficiency(drive_id, distance)
-
                     send_msg(round(distance, 2), duration_min, avg_speed, efficiency, start_time, end_time,
                      start_address, end_address)
 
