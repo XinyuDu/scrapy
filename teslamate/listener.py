@@ -115,7 +115,7 @@ def listen_and_fetch():
             # 使用select等待5秒，避免忙等待[11](@ref)
             if select.select([conn], [], [], 5) == ([], [], []):
                 # 超时，可以在这里执行一些定期任务或保持连接活性
-                print("监听中...")
+                # print("监听中...")
                 pass
             else:
                 # 有通知或连接活动
