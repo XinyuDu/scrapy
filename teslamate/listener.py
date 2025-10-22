@@ -1,28 +1,9 @@
 import select
-from datetime import timedelta
+from datetime import timedelta, datetime
 import psycopg2
 from pushplus import pushplus
 import uuid
-
-def get_drives(drive_id, connection):
-    try:
-        with connection.cursor() as cursor:
-            # 查询完整的行驶记录信息
-            query = """
-                    SELECT id, start_date, end_date, distance, duration_min, start_address_id, end_address_id
-                    FROM drives 
-                    WHERE id = %s
-                    """
-            cursor.execute(query, (drive_id,))
-            drive_record = cursor.fetchone()
-
-            if drive_record:
-                return drive_record
-            return None
-
-    except Exception as e:
-        print(f"查询行驶记录详情失败: {e}")
-        return None
+import json
 
 def get_addresses(address_id, connection):
     try:
@@ -35,11 +16,6 @@ def get_addresses(address_id, connection):
             address_record = cursor.fetchone()
 
             if address_record:
-                # # 获取列名并创建字典
-                # colnames = [desc[0] for desc in cursor.description]
-                # drive_dict = dict(zip(colnames, drive_record))
-                # drive_dict['fetch_time'] = datetime.now().isoformat()
-                # return drive_dict
                 return address_record
 
             return None
@@ -74,27 +50,49 @@ def get_efficiency(drive_id, distance, connection):
             return 'N/A'
 
     except Exception as e:
-        print(f"操作出错: {e}")
+        print(f"计算能耗操作出错: {e}")
+        return 'N/A'
 
-def send_msg(distance, duration_min, avg_speed, efficiency, start_time, end_time, start_address, end_address):
-    content = "距离：{} 公里\n耗时：{} 分钟\n均速：{} 公里/小时\n能耗：{} 度/百公里\n出发时间：{}\n到达时间：{}\n起始地点：{}\n到达地点：{}".format(distance, duration_min, avg_speed, efficiency, start_time, end_time, start_address, end_address,)
-
+def send_msg(title, content):
     body = {
         "token": "2cfba23c342a4deeba50a6d922ec2ea4",
-        "content": content+ '\n'+ str(uuid.uuid4()),
-        "title": "驾驶旅程信息",
+        "content": content,
+        "title": title,
     }
     msg = pushplus(body)
     re = msg.send()
     print(re.text)
 
+
+def convert_minutes(total_minutes):
+    """
+    将分钟数转换为小时和分钟的格式。
+
+    参数:
+        total_minutes (int): 总分钟数
+
+    返回:
+        str: 格式化后的字符串，格式为"X小时Y分钟"
+    """
+    hours = total_minutes // 60
+    minutes = total_minutes % 60
+    # 根据小时和分钟的值，决定输出的格式
+    if hours > 0 and minutes > 0:
+        return f"{hours}小时{minutes}分钟"
+    elif hours > 0 and minutes==0:  # 分钟数为0，只显示小时
+        return f"{hours}小时"
+    elif minutes > 0 and hours==0:  # 小时数为0，只显示分钟
+        return f"{minutes}分钟"
+    else:  # 总分钟数为0的特殊情况
+        return "0分钟"
+
 def listen_and_fetch():
     # 数据库连接参数，请根据你的TeslaMate数据库配置修改
     conn_params = {
-        'dbname': 'test',
+        'dbname': 'teslamate',
         'user': 'teslamate',
         'password': '123456',  # 请替换为你的密码
-        'host': 'nas.tailc67917.ts.net',
+        'host': 'nas.tailc67917.ts.net', #'nas.tailc67917.ts.net',
         'port': '15432'
     }
 
@@ -106,9 +104,9 @@ def listen_and_fetch():
         conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
         curs = conn.cursor()
 
-        # 开始监听频道 'new_drive'
-        curs.execute("LISTEN new_drive;")
-        print("开始监听数据库通知... 等待新的行驶记录。")
+        # 开始监听频道 'table_changes'
+        curs.execute("LISTEN table_changes;")
+        print(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ", 开始监听数据库通知... 等待新的行驶记录。")
 
         while True:
             # 等待并处理通知
@@ -122,21 +120,57 @@ def listen_and_fetch():
                 conn.poll()
                 while conn.notifies:
                     notify = conn.notifies.pop(0)
-                    drive_id = notify.payload  # 这里就是从触发器收到的 drive_id
-                    print(f"收到通知，行驶记录ID: {drive_id}")
-                    drive = get_drives(drive_id, conn)
-                    start_time = (drive[1] + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
-                    end_time = (drive[2] + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
-                    distance = drive[3]
-                    duration_min = drive[4]
-                    start_address_id = drive[5]
-                    end_address_id = drive[6]
-                    start_address = get_addresses(start_address_id, conn)[0]
-                    end_address = get_addresses(end_address_id, conn)[0]
-                    avg_speed = round(distance / duration_min * 60, 2)
-                    efficiency = get_efficiency(drive_id, distance)
-                    send_msg(round(distance, 2), duration_min, avg_speed, efficiency, start_time, end_time,
-                     start_address, end_address)
+                    payload_data = notify.payload
+                    payload = json.loads(payload_data)
+                    print(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + f", 收到通知: {payload}")
+                    operation = payload['operation']
+                    table_name = payload['table']
+                    if operation == 'UPDATE' and table_name == 'drives':
+                        drive_record = payload['record']
+                        drive_id = drive_record['id']
+                        start_time = (datetime.strptime(drive_record['start_date'], '%Y-%m-%dT%H:%M:%S.%f') + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
+                        end_time = (datetime.strptime(drive_record['end_date'], '%Y-%m-%dT%H:%M:%S.%f') + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
+                        distance = drive_record['distance']
+                        duration_min = drive_record['duration_min']
+                        start_address_id = drive_record['start_address_id']
+                        end_address_id = drive_record['end_address_id']
+                        start_address = get_addresses(start_address_id, conn)[0]
+                        end_address = get_addresses(end_address_id, conn)[0]
+                        avg_speed = round(distance / duration_min * 60, 2)
+                        efficiency = get_efficiency(drive_id, distance, conn)
+                        content = "距离：{} 公里\n耗时：{}\n均速：{} 公里/小时\n能耗：{} 度/百公里\n出发时间：{}\n到达时间：{}\n起始地点：{}\n到达地点：{}".format(
+                            round(distance, 2), convert_minutes(duration_min), avg_speed, efficiency, start_time, end_time, start_address, end_address)
+                        content = content + '\n' + str(uuid.uuid4())
+                        title = "驾驶旅程信息"
+                        send_msg(title, content)
+                    elif operation == 'UPDATE' and table_name == 'charging_processes':
+                        charging_record = payload['record']
+                        address_id = charging_record['id']
+                        start_time = (datetime.strptime(charging_record['start_date'], '%Y-%m-%dT%H:%M:%S.%f') + timedelta(
+                            hours=8)).strftime("%Y-%m-%d %H:%M:%S")
+                        end_time = (datetime.strptime(charging_record['end_date'], '%Y-%m-%dT%H:%M:%S.%f') + timedelta(
+                            hours=8)).strftime("%Y-%m-%d %H:%M:%S")
+                        duration_min = charging_record['duration_min']
+                        outside_temp_avg = charging_record['outside_temp_avg']
+                        charge_energy_added = charging_record['charge_energy_added']
+                        charge_energy_used = charging_record['charge_energy_used']
+                        efficiency = round(charge_energy_added/charge_energy_used*100,1)
+                        address = get_addresses(address_id, conn)[0]
+                        start_battery_level = charging_record['start_battery_level']
+                        end_battery_level = charging_record['end_battery_level']
+                        start_ideal_range_km = charging_record['start_ideal_range_km']
+                        end_ideal_range_km = charging_record['end_ideal_range_km']
+                        if address_id == 1:
+                            cost = charge_energy_used * 0.4733
+                        else:
+                            cost = 'N/A'
+                        content = "花费：{} 元\n充电：{} 度，耗电：{} 度，效率：{}%\n电池：{}% → {}%\n里程：{} → {} 公里\n温度：{}℃\n开始：{}\n结束：{}\n耗时：{}\n地址：{}".format(
+                                round(cost,2), charge_energy_added,charge_energy_used,efficiency, start_battery_level, end_battery_level, start_ideal_range_km, end_ideal_range_km,
+                            outside_temp_avg, start_time, end_time, convert_minutes(duration_min), address)
+                        title = "充电信息"
+                        send_msg(title, content)
+                    else:
+                        print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), operation, table_name)
 
     except Exception as e:
         print(f"监听过程中出现错误: {e}")
@@ -146,3 +180,4 @@ def listen_and_fetch():
 
 if __name__ == "__main__":
     listen_and_fetch()
+
